@@ -1,0 +1,36 @@
+version: "1"
+
+services:
+  orders_backend:
+    restart: always
+    image: orders_backend:latest
+    build: ./orders_backend
+    ports:
+      - "5002:5002"
+    networks:
+      - kafka-net
+  
+  transactions_backend:
+    restart: always
+    image: transactions_backend:latest
+    build: ./transactions_backend
+    networks:
+      - kafka-net
+
+  email_backend:
+    restart: always
+    image: email_backend:latest
+    build: ./email_backend
+    networks:
+      - kafka-net
+  
+  analytics_backend:
+    restart: always
+    image: analytics_backend:latest
+    build: ./analytics_backend
+    networks:
+      - kafka-net
+
+networks:
+  kafka-net:
+    external: true
